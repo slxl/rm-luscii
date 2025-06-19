@@ -9,16 +9,18 @@ struct EpisodeListView: View {
         NavigationView {
             List {
                 ForEach(viewModel.episodes) { episode in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(episode.name)
-                            .font(.headline)
-                        Text(episode.air_date.formattedAirDate)
-                            .font(.subheadline)
-                        Text(episode.episode)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                    NavigationLink(destination: EpisodeDetailView(viewModel: EpisodeDetailViewModel(episode: episode))) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(episode.name)
+                                .font(.headline)
+                            Text(episode.air_date.formattedAirDate)
+                                .font(.subheadline)
+                            Text(episode.episode)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 4)
                     }
-                    .padding(.vertical, 4)
                     .onAppear {
                         if episode == viewModel.episodes.last && !viewModel.reachedEnd {
                             Task { await viewModel.loadEpisodes() }
