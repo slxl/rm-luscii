@@ -1,0 +1,34 @@
+# Certs and keys
+*.pem
+*.crt
+*.cert
+*.p8
+
+# Temporary / caches
+*.swp
+*.orig
+Pods
+Carthage
+archives
+
+# Merges & conflicts
+*_BACKUP_*
+*_LOCAL_*
+*_BASE_*
+*_REMOTE_*
+
+# User data
+xcuserdata
+
+# Other files
+.DS_Store
+
+
+DisplayTextProvider.swift
+Components/Localization/Localization/Source/Generated/L10n.generated.swift
+
+/.build
+/.swiftpm
+.env
+Tools/clean_doc.json
+Tools/doc.json
