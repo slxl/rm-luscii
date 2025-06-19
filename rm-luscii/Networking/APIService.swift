@@ -1,31 +1,28 @@
 import Foundation
 
+// MARK: - APIServiceProtocol
+
 protocol APIServiceProtocol {
     func fetchEpisodes(page: Int) async throws -> EpisodeResponse
-    func fetchCharacter(id: Int) async throws -> Character
     func fetchCharacters(ids: [Int]) async throws -> [Character]
 }
+
+// MARK: - APIService
 
 class APIService: APIServiceProtocol {
     private let baseURL = "https://rickandmortyapi.com/api"
     private let session: URLSession
-    
+
     init(session: URLSession = .shared) {
         self.session = session
     }
-    
+
     func fetchEpisodes(page: Int = 1) async throws -> EpisodeResponse {
         let url = URL(string: "\(baseURL)/episode?page=\(page)")!
         let (data, _) = try await session.data(from: url)
         return try JSONDecoder().decode(EpisodeResponse.self, from: data)
     }
-    
-    func fetchCharacter(id: Int) async throws -> Character {
-        let url = URL(string: "\(baseURL)/character/\(id)")!
-        let (data, _) = try await session.data(from: url)
-        return try JSONDecoder().decode(Character.self, from: data)
-    }
-    
+
     func fetchCharacters(ids: [Int]) async throws -> [Character] {
         let idsString = ids.map { String($0) }.joined(separator: ",")
         let url = URL(string: "\(baseURL)/character/\(idsString)")!
@@ -39,6 +36,8 @@ class APIService: APIServiceProtocol {
     }
 }
 
+// MARK: - MockAPIService
+
 class MockAPIService: APIServiceProtocol {
     func fetchEpisodes(page: Int) async throws -> EpisodeResponse {
         let episodes = [
@@ -48,10 +47,8 @@ class MockAPIService: APIServiceProtocol {
         let info = PageInfo(count: 2, pages: 1, next: nil, prev: nil)
         return EpisodeResponse(info: info, results: episodes)
     }
-    func fetchCharacter(id: Int) async throws -> Character {
-        return Character(id: id, name: "Rick Sanchez", status: "Alive", species: "Human", origin: Origin(name: "Earth", url: ""), image: "", episode: [])
-    }
+
     func fetchCharacters(ids: [Int]) async throws -> [Character] {
         return ids.map { Character(id: $0, name: "Character \($0)", status: "Alive", species: "Human", origin: Origin(name: "Earth", url: ""), image: "", episode: []) }
     }
-} 
+}

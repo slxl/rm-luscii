@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EpisodeDetailView: View {
     @StateObject var viewModel: EpisodeDetailViewModel
-    
+
     var body: some View {
         List {
             if viewModel.isLoading {
@@ -13,19 +13,23 @@ struct EpisodeDetailView: View {
                 }
             } else {
                 ForEach(viewModel.characters) { character in
-                    HStack {
-                        AsyncImage(url: URL(string: character.image)) { image in
-                            image.resizable().aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Color.gray.opacity(0.2)
+                    NavigationLink(destination: CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))) {
+                        HStack {
+                            AsyncImage(url: URL(string: character.image)) { image in
+                                image.resizable().aspectRatio(contentMode: .fill)
+                            } placeholder: {
+                                Color.gray.opacity(0.2)
+                            }
+                            .frame(width: 44, height: 44)
+                            .clipShape(Circle())
+
+                            Text(character.name)
+                                .font(.body)
+
+                            Spacer()
+//                            Image(systemName: "chevron.right")
+//                                .foregroundColor(.gray)
                         }
-                        .frame(width: 44, height: 44)
-                        .clipShape(Circle())
-                        Text(character.name)
-                            .font(.body)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
                     }
                 }
             }
@@ -49,4 +53,4 @@ struct EpisodeDetailView: View {
     NavigationView {
         EpisodeDetailView(viewModel: .mock)
     }
-} 
+}

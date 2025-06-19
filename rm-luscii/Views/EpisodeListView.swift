@@ -3,10 +3,10 @@ import SwiftUI
 // MARK: - EpisodeListView
 
 struct EpisodeListView: View {
-    @StateObject var viewModel: EpisodeListViewModel
+    @ObservedObject var viewModel: EpisodeListViewModel
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(viewModel.episodes) { episode in
                     NavigationLink(destination: EpisodeDetailView(viewModel: EpisodeDetailViewModel(episode: episode))) {
