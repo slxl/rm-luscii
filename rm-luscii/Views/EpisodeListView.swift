@@ -49,6 +49,9 @@ struct EpisodeListView: View {
                     await viewModel.loadEpisodes(reset: true)
                 }
             }
+            .refreshable {
+                await viewModel.loadEpisodes(reset: true)
+            }
             .alert(item: Binding(
                 get: { viewModel.error.map { ErrorWrapper(message: $0) } },
                 set: { _ in viewModel.error = nil }
