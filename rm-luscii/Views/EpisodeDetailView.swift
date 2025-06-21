@@ -13,7 +13,14 @@ struct EpisodeDetailView: View {
                 }
             } else {
                 ForEach(viewModel.characters) { character in
-                    NavigationLink(destination: CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))) {
+                    NavigationLink(
+                        destination: CharacterDetailView(
+                            viewModel: CharacterDetailViewModel(
+                                character: character,
+                                pdfExportService: PDFExportService() // TODO: invoke via DI
+                            )
+                        )
+                    ) {
                         HStack {
                             AsyncImage(url: URL(string: character.image)) { image in
                                 image.resizable().aspectRatio(contentMode: .fill)
@@ -27,8 +34,6 @@ struct EpisodeDetailView: View {
                                 .font(.body)
 
                             Spacer()
-//                            Image(systemName: "chevron.right")
-//                                .foregroundColor(.gray)
                         }
                     }
                 }

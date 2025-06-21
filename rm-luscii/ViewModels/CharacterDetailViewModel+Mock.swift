@@ -12,6 +12,9 @@ extension CharacterDetailViewModel {
             episode: Array(repeating: "", count: 41)
         )
 
-        return CharacterDetailViewModel(character: mockCharacter, apiService: MockAPIService())
+        return CharacterDetailViewModel(
+            character: mockCharacter,
+            pdfExportService: MockPDFExportService()
+        )
     }
 }

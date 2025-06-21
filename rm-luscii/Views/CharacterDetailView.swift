@@ -1,9 +1,24 @@
 import SwiftUI
 
+// MARK: - ShareSheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
 // MARK: - CharacterDetailView
 
 struct CharacterDetailView: View {
     @StateObject var viewModel: CharacterDetailViewModel
+    @State private var showShareSheet = false
+    @State private var shareFileURL: URL? = nil
 
     var body: some View {
         ScrollView {
@@ -22,9 +37,7 @@ struct CharacterDetailView: View {
                         .clipShape(Circle())
 
                         AsyncImage(url: URL(string: viewModel.character.image)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                            image.resizable().aspectRatio(contentMode: .fill)
                         } placeholder: {
                             Color.gray.opacity(0.2)
                         }
@@ -58,23 +71,21 @@ struct CharacterDetailView: View {
                     HStack {
                         Text("Status")
                             .font(.headline)
-                            .foregroundColor(.primary)
-
+                            .foregroundColor(.secondary)
                         Spacer()
-
                         Text(viewModel.character.status)
                             .font(.headline)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
                             .background(
                                 Capsule()
-                                    .fill(statusColor.opacity(0.2))
+                                    .fill(viewModel.character.status.statusColor.opacity(0.2))
                                     .overlay(
                                         Capsule()
-                                            .stroke(statusColor, lineWidth: 1)
+                                            .stroke(viewModel.character.status.statusColor, lineWidth: 1)
                                     )
                             )
-                            .foregroundColor(statusColor)
+                            .foregroundColor(viewModel.character.status.statusColor)
                     }
 
                     Divider()
@@ -93,6 +104,43 @@ struct CharacterDetailView: View {
                         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                 )
                 .padding(.horizontal)
+
+                // Export Button
+                Button(action: {
+                    Task {
+                        if let fileURL = await viewModel.exportCharacterDetailsForSharing() {
+                            shareFileURL = fileURL
+                            showShareSheet = true
+                        }
+                    }
+                }) {
+                    HStack {
+                        if viewModel.isExporting {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                                .foregroundColor(.white)
+                        } else {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.headline)
+                        }
+                        Text(viewModel.isExporting ? "Exporting..." : "Export Details")
+                            .font(.headline)
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        LinearGradient(
+                            colors: [.blue, .purple],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                }
+                .disabled(viewModel.isExporting)
+                .padding(.horizontal)
             }
             .padding(.vertical)
         }
@@ -105,18 +153,16 @@ struct CharacterDetailView: View {
         )
         .navigationTitle(viewModel.character.name)
         .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private var statusColor: Color {
-        switch viewModel.character.status.lowercased() {
-        case "alive":
-            return .green
-        case "dead":
-            return .red
-        case "unknown":
-            return .orange
-        default:
-            return .gray
+        .alert(item: Binding(
+            get: { viewModel.error.map { ErrorWrapper(message: $0) } },
+            set: { _ in viewModel.error = nil }
+        )) { wrapper in
+            Alert(title: Text("Export Error"), message: Text(wrapper.message), dismissButton: .default(Text("OK")))
+        }
+        .sheet(isPresented: $showShareSheet) {
+            if let fileURL = shareFileURL {
+                ShareSheet(activityItems: [fileURL])
+            }
         }
     }
 }
