@@ -17,6 +17,12 @@ class EpisodeListViewModel: ObservableObject {
         self.apiService = apiService
     }
 
+    /// Loads episodes from the API with pagination support
+    /// 
+    /// This function handles both initial loading and pagination. It prevents multiple
+    /// simultaneous requests and manages the pagination state automatically.
+    /// 
+    /// - Parameter reset: If true, resets the episode list and starts from page 1
     func loadEpisodes(reset: Bool = false) async {
         guard !isLoading else {
             return

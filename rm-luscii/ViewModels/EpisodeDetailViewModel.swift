@@ -16,6 +16,10 @@ class EpisodeDetailViewModel: ObservableObject {
         self.apiService = apiService
     }
 
+    /// Loads character data for the episode by fetching character details from the API
+    /// 
+    /// This function prevents multiple simultaneous requests by checking the loading state.
+    /// It fetches character details for all character IDs associated with the episode.
     func loadCharacters() async {
         guard !isLoading else {
             return

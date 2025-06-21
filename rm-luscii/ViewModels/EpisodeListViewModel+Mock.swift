@@ -13,6 +13,7 @@ extension EpisodeListViewModel {
             Episode(id: 7, name: "Raising Gazorpazorp", air_date: "10/03/2014", episode: "S01E07", characters: [])
         ]
         vm.reachedEnd = true
+
         return vm
     }
 } 
