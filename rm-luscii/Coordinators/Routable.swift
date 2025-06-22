@@ -8,7 +8,7 @@ protocol Routable: AnyObject {
     associatedtype Route
     
     /// Handler for navigation routes
-    var routeHandler: ((Route) -> Void)? { get set }
+    @MainActor var routeHandler: ((Route) -> Void)? { get set }
 }
 
 // MARK: - Routable Extensions
@@ -18,7 +18,7 @@ extension Routable {
     /// 
     /// This method provides a cleaner way to trigger routes from within the ViewModel
     /// - Parameter route: The route to trigger
-    func route(_ route: Route) {
+    @MainActor func route(_ route: Route) {
         routeHandler?(route)
     }
 } 
