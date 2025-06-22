@@ -1,8 +1,8 @@
 import Foundation
 
 extension EpisodeListViewModel {
-    static var mock: EpisodeListViewModel {
-        let vm = EpisodeListViewModel(apiService: MockAPIService())
+    static var previewMock: EpisodeListViewModel {
+        let vm = EpisodeListViewModel(apiService: PreviewAPIService())
         vm.episodes = [
             Episode(id: 1, name: "Pilot", air_date: "02/12/2013", episode: "S01E01", characters: []),
             Episode(id: 2, name: "Lawnmower Dog", air_date: "09/12/2013", episode: "S01E02", characters: []),

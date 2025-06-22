@@ -1,6 +1,6 @@
 import Foundation
 
-struct Character: Codable, Identifiable {
+struct Character: Codable, Identifiable, Equatable {
     let id: Int
     let name: String
     let status: String
@@ -10,7 +10,7 @@ struct Character: Codable, Identifiable {
     let episode: [String] // URLs to episodes
 }
 
-struct Origin: Codable {
+struct Origin: Codable, Equatable {
     let name: String
     let url: String
 } 

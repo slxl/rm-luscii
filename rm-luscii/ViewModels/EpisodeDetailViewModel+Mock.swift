@@ -1,7 +1,7 @@
 import Foundation
 
 extension EpisodeDetailViewModel {
-    static var mock: EpisodeDetailViewModel {
+    static var previewMock: EpisodeDetailViewModel {
         let mockEpisode = Episode(
             id: 1,
             name: "Pilot",
@@ -14,7 +14,7 @@ extension EpisodeDetailViewModel {
             ]
         )
 
-        let vm = EpisodeDetailViewModel(episode: mockEpisode, apiService: MockAPIService())
+        let vm = EpisodeDetailViewModel(episode: mockEpisode, apiService: PreviewAPIService())
         vm.characters = [
             Character(
                 id: 1,

@@ -1,6 +1,6 @@
-// MARK: - MockAPIService
+// MARK: - PreviewAPIService
 
-class MockAPIService: APIServiceProtocol {
+class PreviewAPIService: APIServiceProtocol {
     private enum Constants {
         static let defaultPageCount = 2
         static let defaultTotalPages = 1

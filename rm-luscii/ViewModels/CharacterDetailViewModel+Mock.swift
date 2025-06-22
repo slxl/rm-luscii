@@ -1,7 +1,7 @@
 import Foundation
 
 extension CharacterDetailViewModel {
-    static var mock: CharacterDetailViewModel {
+    static var previewMock: CharacterDetailViewModel {
         let mockCharacter = Character(
             id: 1,
             name: "Rick Sanchez",
@@ -14,7 +14,7 @@ extension CharacterDetailViewModel {
 
         return CharacterDetailViewModel(
             character: mockCharacter,
-            pdfExportService: MockPDFExportService()
+            pdfExportService: PreviewPDFExportService()
         )
     }
 }

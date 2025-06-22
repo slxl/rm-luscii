@@ -170,6 +170,6 @@ struct CharacterDetailView: View {
 
 #Preview {
     NavigationView {
-        CharacterDetailView(viewModel: .mock)
+        CharacterDetailView(viewModel: .previewMock)
     }
 }

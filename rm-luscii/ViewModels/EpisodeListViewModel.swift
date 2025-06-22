@@ -3,7 +3,7 @@ import Foundation
 
 @MainActor
 class EpisodeListViewModel: ObservableObject, Routable {
-    enum Route {
+    enum Route: Equatable {
         case showEpisodeDetail(Episode)
     }
 

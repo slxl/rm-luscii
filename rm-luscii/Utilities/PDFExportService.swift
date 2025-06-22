@@ -139,15 +139,15 @@ class PDFExportService: PDFExportServiceProtocol {
     }
 }
 
-// MARK: - MockPDFExportService
+// MARK: - PreviewPDFExportService
 
-/// Mock implementation of PDFExportServiceProtocol for testing and previews
-class MockPDFExportService: PDFExportServiceProtocol {
-    /// Provides mock PDF data for testing purposes
-    /// - Parameter character: The character (ignored in mock implementation)
-    /// - Returns: Empty Data object for testing
+/// Preview implementation of PDFExportServiceProtocol for SwiftUI previews
+class PreviewPDFExportService: PDFExportServiceProtocol {
+    /// Provides mock PDF data for preview purposes
+    /// - Parameter character: The character (ignored in preview implementation)
+    /// - Returns: Empty Data object for previews
     func createCharacterPDF(character: Character) throws -> Data {
-        // Return empty PDF data for testing
+        // Return empty PDF data for previews
         return Data()
     }
 }

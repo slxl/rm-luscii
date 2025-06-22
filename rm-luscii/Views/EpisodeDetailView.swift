@@ -52,6 +52,6 @@ struct EpisodeDetailView: View {
 
 #Preview {
     NavigationView {
-        EpisodeDetailView(viewModel: .mock)
+        EpisodeDetailView(viewModel: .previewMock)
     }
 }

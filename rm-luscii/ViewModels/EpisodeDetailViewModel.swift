@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class EpisodeDetailViewModel: ObservableObject, Routable {
-    enum Route {
+    enum Route: Equatable {
         case showCharacterDetail(Character)
     }
 
@@ -29,6 +29,10 @@ class EpisodeDetailViewModel: ObservableObject, Routable {
     /// using a single API call with an array of IDs for better performance.
     @MainActor
     func loadCharacters() async {
+        guard !isLoading else {
+            return
+        }
+        
         guard !characterIDs.isEmpty else {
             return
         }

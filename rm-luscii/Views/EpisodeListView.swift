@@ -114,5 +114,5 @@ struct EpisodeListView: View {
 }
 
 #Preview {
-    EpisodeListView(viewModel: .mock)
+    EpisodeListView(viewModel: .previewMock)
 }

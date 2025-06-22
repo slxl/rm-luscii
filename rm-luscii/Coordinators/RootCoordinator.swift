@@ -12,6 +12,7 @@ internal class RootCoordinator: Coordinator {
     private var childCoordinators: [any Coordinator] = []
     
     // MARK: - Dependencies
+
     private let apiService: APIServiceProtocol
     private let pdfExportService: PDFExportServiceProtocol
 
