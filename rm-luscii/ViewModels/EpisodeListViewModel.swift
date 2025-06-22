@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 @MainActor
-class EpisodeListViewModel: ObservableObject {
+class EpisodeListViewModel: ObservableObject, Routable {
     enum Route {
         case showEpisodeDetail(Episode)
     }
@@ -72,6 +72,6 @@ class EpisodeListViewModel: ObservableObject {
 
     /// Handles episode selection and triggers navigation
     func didSelectEpisode(_ episode: Episode) {
-        routeHandler?(.showEpisodeDetail(episode))
+        route(.showEpisodeDetail(episode))
     }
 }

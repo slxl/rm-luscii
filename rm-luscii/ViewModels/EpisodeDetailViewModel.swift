@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-class EpisodeDetailViewModel: ObservableObject {
+class EpisodeDetailViewModel: ObservableObject, Routable {
     enum Route {
         case showCharacterDetail(Character)
     }
@@ -52,6 +52,6 @@ class EpisodeDetailViewModel: ObservableObject {
 
     /// Handles character selection and triggers navigation
     func didSelectCharacter(_ character: Character) {
-        routeHandler?(.showCharacterDetail(character))
+        route(.showCharacterDetail(character))
     }
 }

@@ -7,5 +7,5 @@ internal protocol Coordinator: AnyObject {
     var rootViewController: UIViewController { get }
     var routeHandler: ((R) -> Void)? { get set }
 
-    func start()
-} 
+    @MainActor func start()
+}

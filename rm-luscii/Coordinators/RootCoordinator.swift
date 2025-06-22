@@ -65,7 +65,8 @@ internal class RootCoordinator: Coordinator {
         return hostingController
     }
 
-    @MainActor func buildCharacterDetailViewController(character: Character) -> UIViewController {
+    @MainActor
+    func buildCharacterDetailViewController(character: Character) -> UIViewController {
         let characterDetailViewModel = CharacterDetailViewModel(
             character: character,
             pdfExportService: pdfExportService
