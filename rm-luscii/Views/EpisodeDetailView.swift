@@ -13,14 +13,9 @@ struct EpisodeDetailView: View {
                 }
             } else {
                 ForEach(viewModel.characters) { character in
-                    NavigationLink(
-                        destination: CharacterDetailView(
-                            viewModel: CharacterDetailViewModel(
-                                character: character,
-                                pdfExportService: PDFExportService() // TODO: invoke via DI
-                            )
-                        )
-                    ) {
+                    Button(action: {
+                        viewModel.didSelectCharacter(character)
+                    }) {
                         HStack {
                             AsyncImage(url: URL(string: character.image)) { image in
                                 image.resizable().aspectRatio(contentMode: .fill)
@@ -36,6 +31,7 @@ struct EpisodeDetailView: View {
                             Spacer()
                         }
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }

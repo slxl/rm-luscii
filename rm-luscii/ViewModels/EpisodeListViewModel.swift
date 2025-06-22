@@ -3,6 +3,10 @@ import Foundation
 
 @MainActor
 class EpisodeListViewModel: ObservableObject {
+    enum Route {
+        case showEpisodeDetail(Episode)
+    }
+
     @Published var episodes: [Episode] = []
     @Published var isLoading = false
     @Published var reachedEnd = false
@@ -13,15 +17,17 @@ class EpisodeListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let apiService: APIServiceProtocol
 
+    var routeHandler: ((Route) -> Void)?
+
     init(apiService: APIServiceProtocol = APIService()) {
         self.apiService = apiService
     }
 
     /// Loads episodes from the API with pagination support
-    /// 
+    ///
     /// This function handles both initial loading and pagination. It prevents multiple
     /// simultaneous requests and manages the pagination state automatically.
-    /// 
+    ///
     /// - Parameter reset: If true, resets the episode list and starts from page 1
     func loadEpisodes(reset: Bool = false) async {
         guard !isLoading else {
@@ -62,5 +68,10 @@ class EpisodeListViewModel: ObservableObject {
         }
 
         isLoading = false
+    }
+
+    /// Handles episode selection and triggers navigation
+    func didSelectEpisode(_ episode: Episode) {
+        routeHandler?(.showEpisodeDetail(episode))
     }
 }
