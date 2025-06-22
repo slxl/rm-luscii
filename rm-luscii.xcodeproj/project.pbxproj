@@ -27,6 +27,7 @@
 		F90409302E044B2B00222689 /* rm-luscii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rm-luscii.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F90409402E044B2D00222689 /* rm-lusciiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rm-lusciiTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F904094A2E044B2D00222689 /* rm-lusciiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rm-lusciiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9040DB42E08A2ED00222689 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		F90409272E044B2B00222689 = {
 			isa = PBXGroup;
 			children = (
+				F9040DB42E08A2ED00222689 /* README.md */,
 				F90409322E044B2B00222689 /* rm-luscii */,
 				F90409432E044B2D00222689 /* rm-lusciiTests */,
 				F904094D2E044B2D00222689 /* rm-lusciiUITests */,
